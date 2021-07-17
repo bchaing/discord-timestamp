@@ -165,15 +165,19 @@
     </select>
 
     <select name="ampm" id="ampm-select">
-      <option value="AM">AM</option>
-      <option value="PM">PM</option>
-    </select>
+      <option value="1">AM</option>
+      <option value="0">PM</option>
+    </select><br>
+
+    <label for="format">Format:</label>
+    <select name="format" id="format-select"></select>
   </form>
 
   <p id="output"></p>
 
   <!-- Main Script -->
   <script src="script.js" type="module"></script>
+  <script src="https://unpkg.com/common-tags"></script>
 </body>
 
 </html>
