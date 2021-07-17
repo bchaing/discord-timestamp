@@ -148,5 +148,5 @@ function updateSelectedDate() {
 
 // update selectedTime
 function updatedSelectedTime() {
-  selectedTime = `${(selectAMPM.value ? selectHour.value : String(Number(selectHour.value) + 12)).padStart(2, 0)}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
+  selectedTime = `${(selectAMPM.value > 0 ? selectHour.value : String(Number(selectHour.value) + 12)).padStart(2,0)}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
 }
