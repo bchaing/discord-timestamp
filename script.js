@@ -1,5 +1,3 @@
-const { oneLine, oneLineTrim } = commonTags;
-
 // date & time object
 const initUnix = Date.now();
 const date = new Date(initUnix);
@@ -9,7 +7,7 @@ const day = String(date.getDate()).padStart(2, 0);
 const hours = date.getHours() % 12;
 const mins = date.getMinutes();
 const secs = date.getSeconds();
-const ampm = date.getHours() - 12 <= 0 ? 1 : 0;
+const ampm = date.getHours() - 12 < 0 ? 1 : 0;
 
 // set current unix time
 const currUnix = document.getElementById("curr-unix");
@@ -30,14 +28,7 @@ selectSec.value = secs;
 selectAMPM.value = ampm;
 
 let selectedDate = selectDate.value;
-let selectedTime = oneLineTrim`
-                      ${
-                        ampm
-                          ? selectHour.value.padStart(2, 0)
-                          : String(selectHour.value + 11).padStart(2, 0)
-                      }:
-                      ${selectMin.value.padStart(2, 0)}:
-                      ${selectSec.value.padStart(2, 0)}`;
+let selectedTime = `${(ampm ? selectHour.value : String(Number(selectHour.value) + 12)).padStart(2,0)}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
 
 // initialize formats
 updateFormats();
@@ -104,10 +95,7 @@ function updateFormats() {
     },
     1: {
       value: "f",
-      format: oneLine`
-          ${d.toLocaleDateString()}
-          ${d.toLocaleTimeString(undefined, { timeStyle: "short" })}
-        `,
+      format: `${d.toLocaleDateString()} ${d.toLocaleTimeString(undefined, { timeStyle: "short" })}`, // prettier-ignore
     },
     2: {
       value: "t",
@@ -119,10 +107,7 @@ function updateFormats() {
     },
     4: {
       value: "F",
-      format: oneLine`
-        ${d.toLocaleDateString(undefined, { dateStyle: "full" })}
-        ${d.toLocaleTimeString(undefined, { timeStyle: "short" })}
-      `,
+      format: `${d.toLocaleDateString(undefined, { dateStyle: "full" })} ${d.toLocaleTimeString(undefined, { timeStyle: "short" })}`, // prettier-ignore
     },
     5: {
       value: "R",
@@ -163,13 +148,5 @@ function updateSelectedDate() {
 
 // update selectedTime
 function updatedSelectedTime() {
-  selectedTime = oneLineTrim`
-                            ${
-                              selectAMPM.value
-                                ? selectHour.value.padStart(2, 0)
-                                : String(selectHour.value * 2).padStart(2, 0)
-                            }:
-                            ${selectMin.value.padStart(2, 0)}:
-                            ${selectSec.value.padStart(2, 0)}
-                          `;
+  selectedTime = `${(selectAMPM.value ? selectHour.value : String(Number(selectHour.value) + 12)).padStart(2, 0)}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
 }
