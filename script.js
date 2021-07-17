@@ -28,7 +28,7 @@ selectSec.value = secs;
 selectAMPM.value = ampm;
 
 let selectedDate = selectDate.value;
-let selectedTime = `${(ampm ? selectHour.value : String(Number(selectHour.value) + 12)).padStart(2,0)}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
+let selectedTime = `${(ampm ? selectHour.value : String((Number(selectHour.value) + 12) % 24).padStart(2,0))}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
 
 // initialize formats
 updateFormats();
@@ -95,7 +95,7 @@ function updateFormats() {
     },
     1: {
       value: "f",
-      format: `${d.toLocaleDateString()} ${d.toLocaleTimeString(undefined, { timeStyle: "short" })}`, // prettier-ignore
+      format: `${d.toLocaleDateString(undefined, { dateStyle: "long" })} ${d.toLocaleTimeString(undefined, { timeStyle: "short" })}`, // prettier-ignore
     },
     2: {
       value: "t",
@@ -148,5 +148,5 @@ function updateSelectedDate() {
 
 // update selectedTime
 function updatedSelectedTime() {
-  selectedTime = `${(selectAMPM.value > 0 ? selectHour.value : String(Number(selectHour.value) + 12)).padStart(2,0)}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
+  selectedTime = `${String(selectAMPM.value > 0 ? selectHour.value % 12: ((Number(selectHour.value) + 12) % 24) || 12).padStart(2,0)}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
 }
