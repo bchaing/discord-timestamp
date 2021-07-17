@@ -34,7 +34,7 @@ let selectedTime = oneLineTrim`
                       ${
                         ampm
                           ? selectHour.value.padStart(2, 0)
-                          : String(selectHour.value + 12).padStart(2, 0)
+                          : String(selectHour.value + 11).padStart(2, 0)
                       }:
                       ${selectMin.value.padStart(2, 0)}:
                       ${selectSec.value.padStart(2, 0)}`;
