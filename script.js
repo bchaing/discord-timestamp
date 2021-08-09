@@ -11,7 +11,10 @@ const ampm = date.getHours() - 12 < 0 ? 1 : 0;
 
 // set current unix time
 const currUnix = document.getElementById("curr-unix");
-currUnix.innerText = Math.floor(initUnix / 1000);
+currUnix.value = Math.floor(initUnix / 1000);
+setInterval(() => {
+  currUnix.value = Math.floor(Date.now() / 1000);
+}, 1000);
 
 // form defaults
 const selectDate = document.getElementById("date-select");
@@ -28,7 +31,7 @@ selectSec.value = secs;
 selectAMPM.value = ampm;
 
 let selectedDate = selectDate.value;
-let selectedTime = `${(ampm ? selectHour.value : String((Number(selectHour.value) + 12) % 24).padStart(2,0))}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
+let selectedTime = `${(ampm ? selectHour.value.padStart(2,0) : String((Number(selectHour.value) + 12) % 24).padStart(2,0))}:${selectMin.value.padStart(2, 0)}:${selectSec.value.padStart(2, 0)}`; // prettier-ignore
 
 // initialize formats
 updateFormats();
@@ -69,6 +72,13 @@ selectAMPM.addEventListener("change", () => {
 
 selectFormat.addEventListener("change", () => {
   updateOutput();
+});
+
+const copyUNIX = document.getElementById("copy-unix");
+copyUNIX.addEventListener("click", () => {
+  currUnix.select();
+  currUnix.setSelectionRange(0, 99999);
+  document.execCommand("copy");
 });
 
 /*

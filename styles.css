@@ -1,3 +1,30 @@
 * {
 	font-family: sans-serif;
 }
+
+body {
+  align-items: center;
+  display: grid;
+  height: 98vh;
+  justify-items: center;
+  width: 99vw;
+}
+
+main {
+  align-self: flex-start;
+  display: grid;
+}
+
+#content-wrapper {
+  align-items: center;
+  background-color: lightgray;
+  display: grid;
+  grid-template-rows: 13% 87%;
+  height: 750px;
+  justify-items: center;
+  width: 500px;
+}
+
+#output {
+  align-items: center;
+}
